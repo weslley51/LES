@@ -1,0 +1,43 @@
+﻿<div ng-controller="BasicoController as vm">
+	<div class="box">
+		<div class="box-header with-border" style="padding: 10px !important;">
+			<h3 class="box-title"><b>{{ vm.tituloBox }}</b></h3>
+			<div class="box-tools pull-right">
+				<a id="abrir-modal" class="btn btn-sm btn-flat btn-primary" ng-click="vm.abrirModal({}, 0)"><span class="fa fa-plus"></span></a>
+			</div>
+		</div>
+
+		<div class="box-body">
+			<div class="row">
+				<div class="table-responsive col-sm-12">
+					<table class="table table-condensed table-hover table-bordered">
+						<thead>
+							<tr>
+								<th style="text-align:center">Nome</th>
+								<th ng-show="usuario.Perfil.Id == 1"></th>							
+							</tr>			
+						</thead>
+						<tbody>
+							<tr ng-repeat="entidade in vm.entidades track by entidade.Id">
+								<td style="text-align:center" ng-click="vm.abrirModal(entidade, 1)">{{ entidade.Nome }}</td>
+								<td style="text-align:center" ng-click="vm.excluir(entidade)" ng-show="usuario.Perfil.Id == 1 && entidade.Ativo == true"><button class="btn btn-danger btn-xs btn-flat"><span class="fa fa-trash"></span></button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer" ng-show="usuario.Perfil.Id == 1">
+			<button class="btn btn-flat btn-danger" ng-click="vm.listarInativos()">Listar Inativos</button>
+		</div> 
+	</div>
+
+	<modal entity="vm.entidade" title="vm.titulo" modal-id="modal-entidade" size="modal-md" show-footer="1" modal-form="vm.formEntidade" save="vm.salvar()" update="vm.atualizar" edit="vm.editar()">				
+		<div class="row">
+			<div class="form-group col-xs-12">
+				<label for="Nome">Nome</label>
+				<input type="text" id="Nome" ng-model="vm.entidade.Nome" class="form-control" placeholder="Nome" ng-disabled="!vm.atualizar" ng-required="true">
+			</div>
+		</div>
+	</modal>
+</div>

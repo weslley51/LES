@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<base href="/" />
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>LES Library</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+	<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+	<!--<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">-->
+	<link rel="stylesheet" href="lib/font-awesome/css/font-awesome_5.3.1.min.css">
+	<link rel="stylesheet" href="lib/adminLTE/css/AdminLTE.min.css">
+	<link rel="stylesheet" href="lib/adminLTE/css/skins/skin-blue.min.css">
+	<link rel="stylesheet" href="lib/angular/css/select.min.css">
+	<link rel="stylesheet" href="lib/datatable/css/datatables.bs.min.css">
+	<link rel="stylesheet" href="lib/datepicker/css/datepicker.min.css">
+	<link rel="stylesheet" href="lib/custom/style.css">
+</head>
+<body class="hold-transition skin-blue" ng-app="App">
+	<div class="layout-top-nav">
+		<div class="wrapper" ng-show="usuario">
+			<header class="main-header">
+				<nav class="navbar navbar-static-top">
+					<div class="container">
+						<div class="navbar-header">
+							<a href="/" class="navbar-brand"><b>LES</b> Library</a>
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+								<i class="fa fa-bars"></i>
+							</button>
+						</div>
+
+						<div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+							<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="" class="dropdown-toggle" data-toggle="dropdown">Cadastros <span class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu">
+										<li ng-hide="usuario.Perfil.Id == 2"><a ui-sref="autor.index">Autores</a></li>
+										<li><a ui-sref="cliente.index">Clientes</a></li>
+										<li ng-hide="usuario.Perfil.Id == 2"><a ui-sref="editora.index">Editoras</a></li>
+										<li ng-hide="usuario.Perfil.Id == 2"><a ui-sref="genero.index">Gêneros</a></li>
+										<li><a ui-sref="livro.index">Livros</a></li>
+										<li ng-hide="usuario.Perfil.Id == 2"><a ui-sref="unidade.index">Unidades</a></li>
+										<li ng-hide="usuario.Perfil.Id == 2"><a ui-sref="usuario.index">Usuários</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="" class="dropdown-toggle" data-toggle="dropdown">Gerenciar <span class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu">
+										<li><a id="MenuAluguel" ui-sref="aluguel.index">Aluguéis</a></li>
+										<li><a ui-sref="multa.index">Multas</a></li>
+										<li class="divider"></li>
+										<li><a ui-sref="estoque.index">Estoque</a></li>
+									</ul>
+								</li>
+								<li class="dropdown" ng-hide="usuario.Perfil.Id == 2">
+									<a href="" class="dropdown-toggle" data-toggle="dropdown">Relatórios <span class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu">
+										<li><a ui-sref="relatorio.index">Gêneros Por mês</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+						<div class="navbar-custom-menu">
+							<ul class="nav navbar-nav">
+								<li class="dropdown notifications-menu">
+									<a href="" class="dropdown-toggle" data-toggle="dropdown">
+										<i class="fa fa-bell"></i>
+										<span class="label label-warning">{{alugueisAtrasados}}</span>
+									</a>
+									<ul class="dropdown-menu">
+										<li class="header">Existem {{alugueisAtrasados}} aluguéis atrasados</li>
+										<li>
+											<ul class="menu">
+												<li>
+													<a href="">
+														<i class="fa fa-users text-aqua"></i> Busque os responsáveis e entre em contato!
+													</a>
+												</li>
+											</ul>
+										</li>
+										<li class="footer"><a ui-sref="aluguel.atrasados">Visualizar Aluguéis atrasados</a></li>
+									</ul>
+								</li>
+
+								<li class="dropdown user user-menu">
+									<a href="" class="dropdown-toggle" data-toggle="dropdown">
+										<i class="img-circle fa fa-user-circle" alt="User Image"></i>
+										<span class="hidden-xs">{{usuario.Nome}}</span>
+									</a>
+									<ul class="dropdown-menu">
+										<li class="user-header">
+											<img src="img/user.png" class="img-circle" alt="User Image">
+											<p>
+												{{usuario.Nome}} - {{usuario.Perfil.Nome}}
+												<small>Usuário desde {{usuario.DataCadastro | date: 'MMMM, yyyy'}}</small>
+											</p>
+										</li>
+										<li class="user-body">
+											<div class="row">
+												<div class="col-xs-12 text-center">
+													<a href=""></a>
+												</div>
+											</div>
+										</li>
+										<li class="user-footer">
+											<div class="pull-left">
+												<a ui-sref="usuario.resetar({id:usuario.Id})" class="btn btn-default btn-flat">Resetar Senha</a>
+											</div>
+											<div class="pull-right">
+												<a ui-sref="usuario.deslogar" class="btn btn-default btn-flat">Deslogar</a>
+											</div>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</header>
+
+			<div class="content-wrapper">
+				<div class="container container-fluid">
+					<section class="content">
+						<div id="loading" ng-style="loading ? { 'display': 'block' } : { 'display': 'none' }">
+							<div id="loading-text"><span class="fa fa-spinner fa-pulse fa-3x fa-fw"></span></div>
+						</div>
+
+						<div ui-view></div>
+					</section>
+				</div>
+			</div>
+
+			<footer class="main-footer">
+				<div class="container">
+					<div class="pull-right hidden-xs">
+						<b>Version</b> 1.0.0
+					</div>
+					<strong>Copyright &copy; 2018 <a>Brandt Santos Systems</a>.</strong> All rights reserved.
+				</div>
+			</footer>
+		</div>
+	</div>
+
+	<div class="login-page" ng-show="!usuario" style="margin: 0; background-color: #f1f1f1">
+
+		<style>
+			html {
+				background: #f1f1f1;
+			}
+		</style>
+
+		<div class="login-box" ng-controller="LoginController as vm">
+			<div class="login-box-body">
+				<p class="login-box-msg">
+					<img src="img/book.png" height="160" />
+				</p>
+
+				<div class="form-group has-feedback">
+					<input type="text" class="form-control" id="Login" name="Login" ng-required="true" ng-model="vm.user.Login">
+					<span class="fa fa-envelope form-control-feedback margin-rigth"></span>
+				</div>
+				<div class="form-group has-feedback">
+					<input type="password" class="form-control" id="Senha" name="Senha" ng-required="true" ng-model="vm.user.Senha">
+					<span class="fa fa-lock  form-control-feedback margin-rigth"></span>
+				</div>
+				<div class="row">
+					<input type="button" id="Logar" class="btn btn-primary btn-block btn-flat" value="ENTRAR" ng-click="vm.logar(vm.user)" />
+				</div>
+
+				<div class="space"></div>
+				<a href="#">Esqueci o e-mail ou senha</a>
+			</div>
+		</div>
+	</div>
+
+	<script src="lib/jquery/jquery.min.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+	<script src="lib/adminLTE/js/adminlte.min.js"></script>
+	<script src="lib/sweet-alert/sweetalert.min.js"></script>
+	<script src="lib/font-awesome/js/font-awesome.min.js"></script>
+	<script src="lib/angular/js/angular.min.js"></script>
+	<script src="lib/angular/js/angular-ui-router.min.js"></script>
+	<script src="lib/angular/js/angular-locale_pt-br.js"></script>
+	<script src="lib/angular/js/select.min.js"></script>
+	<script src="lib/angular/js/ngMask.min.js"></script>
+	<script src="lib/angular/js/ng-file-upload.min.js"></script>
+	<script src="lib/datatable/js/datatables.min.js"></script>
+	<script src="lib/datatable/js/datatables.bs.min.js"></script>
+	<script src="lib/datepicker/js/datepicker.min.js"></script>
+	<script src="lib/chart/chart.js"></script>
+	<script src="lib/chart/chart.bundle.js"></script>
+	<script src="lib/chart/angular-chart.min.js"></script>
+	<script src="lib/chart/angular-chart.min.js.map"></script>
+	<script src="lib/angular/js//ngSweetAlert.js"></script>
+	<script src="app/app.js"></script>
+	<script src="app/config.js"></script>
+	<script src="app/routes.js"></script>
+	<script src="app/components/login/login.controller.js"></script>
+	<script src="app/components/aluguel/aluguel.controller.js"></script>
+	<script src="app/components/basico/basico.controller.js"></script>
+	<script src="app/components/cliente/cliente.controller.js"></script>
+	<script src="app/components/multa/multa.controller.js"></script>
+	<script src="app/components/estoque/estoque.controller.js"></script>
+	<script src="app/components/usuario/usuario.controller.js"></script>
+	<script src="app/components/livro/livro.controller.js"></script>
+	<script src="app/components/unidade/unidade.controller.js"></script>
+	<script src="app/components/relatorio/relatorio.controller.js"></script>
+	<script src="app/components/_utils/api.js"></script>
+	<script src="app/components/_utils/loading.js"></script>
+	<script src="app/components/_utils/codeToChar.filter.js"></script>
+	<script src="app/components/_utils/tipoMulta.filter.js"></script>
+	<script src="app/components/_utils/tipoEstoque.filter.js"></script>
+	<script src="app/components/_utils/cep.service.js"></script>
+	<script src="app/components/_utils/ellipsis.filter.js"></script>
+	<script src="app/components/_utils/rg.filter.js"></script>
+	<script src="app/components/_utils/names.filter.js"></script>
+	<script src="app/components/_utils/phone.filter.js"></script>
+	<script src="app/components/_utils/cpf.filter.js"></script>
+	<script src="app/components/_utils/contactType.filter.js"></script>
+	<script src="app/directives/modal/modal.js"></script>
+	<script src="app/directives/filter/filter.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,74 @@
+﻿<div ng-controller="EstoqueController as vm">
+
+	<filter search="vm.pesquisar(vm.filtro)" clear="vm.limpar()">
+		<div class="row">
+			<div class="form-group col-sm-3">
+				<label for="Descricao">Descricao</label>
+				<input class="form-control" id="Descricao" ng-model="vm.filtro.Descricao" type="text" />
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="Titulo">Titulo</label>
+				<ui-select class="ui-select-bootstrap" id="Titulo" theme="bootstrap" ng-model="vm.filtro.Titulo">
+					<ui-select-match placeholder="Selecione">
+						{{ $select.selected.Nome }}
+					</ui-select-match>
+					<ui-select-choices repeat="item in (vm.titulos | filter: $select.search)">
+						{{ item.Nome }}
+					</ui-select-choices>
+				</ui-select>
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="TiposMovimentacao">Tipo</label>
+				<ui-select class="ui-select-bootstrap" id="TiposMovimentacao" theme="bootstrap" ng-model="vm.filtro.TiposMovimentacao">
+					<ui-select-match placeholder="Selecione">
+						{{ $select.selected }}
+					</ui-select-match>
+					<ui-select-choices repeat="item in (vm.tiposMovimentacao | filter: $select.search)">
+						{{ item }}
+					</ui-select-choices>
+				</ui-select>
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="Unidade">Unidade</label>
+				<ui-select class="ui-select-bootstrap" id="Unidade" theme="bootstrap" ng-model="vm.filtro.Unidade">
+					<ui-select-match placeholder="Selecione">
+						{{ $select.selected.Nome }}
+					</ui-select-match>
+					<ui-select-choices repeat="item in (vm.unidades | filter: $select.search)">
+						{{ item.Nome }}
+					</ui-select-choices>
+				</ui-select>
+			</div>
+		</div>
+	</filter>
+
+	<div class="box">
+		<div class="box-header with-border" style="padding: 10px !important;">
+			<h3 class="box-title"><b>Listagem de Estoques</b></h3>			
+		</div>
+		<div class="box-body">
+			<div class="table-responsive" ng-show="vm.lancamentos && vm.lancamentos.length > 0">
+				<table class="table table-condensed table-hover table-bordered text-center datatable">
+					<thead>
+						<tr>
+							<th with="10%">Data</th>
+							<th with="40%">Livro</th>
+							<th with="10%">Tipo</th>
+							<th with="25%">Descricao</th>
+							<th with="15%">Unidade</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in vm.lancamentos">
+							<td>{{ item.DataCadastro | date : 'dd/MM/yyyy HH:mm:ss' }}</td>
+							<td>{{ item.Titulo.Nome | ellipsis : 50 : true }}</td>
+							<td>{{ item.TipoMovimentacao | tipoEstoque }}</td>
+							<td>{{ item.Descricao | ellipsis : 50 : true }}</td>
+							<td>{{ item.Unidade.Nome }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

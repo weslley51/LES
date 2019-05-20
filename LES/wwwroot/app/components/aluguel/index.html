@@ -1,0 +1,78 @@
+﻿<div ng-controller="AluguelController as vm">
+
+	<filter search="vm.pesquisar(vm.busca)" clear="vm.limpar()">
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label for="Nome">Cliente</label>
+				<input class="form-control" id="Nome" ng-model="vm.busca.Cliente" type="text" />
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="CPF">CPF</label>
+				<input class="form-control" id="CPF" ng-model="vm.busca.CPF" type="text" />
+			</div>
+			<div class="form-group col-sm-3">
+				<label class="without-label" for="Atrasado" ng-click="vm.busca.Atrasado = !vm.busca.Atrasado"><input class="space" type="checkbox" ng-model="vm.busca.Atrasado" /> Atrasados ?</label>				
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label for="Titulo">Titulo</label>
+				<input class="form-control" id="Titulo" ng-model="vm.busca.Titulo" type="text" />
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="CodigoBiblioteca">Código</label>
+				<input class="form-control" id="CodigoBiblioteca" ng-model="vm.busca.CodigoBiblioteca" type="text" />
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="Editora">Editora</label>
+				<ui-select class="ui-select-bootstrap" id="Editora" theme="bootstrap" ng-model="vm.busca.Editora">
+					<ui-select-match placeholder="Selecione">
+						{{ $select.selected.Nome }}
+					</ui-select-match>
+					<ui-select-choices repeat="item in (vm.editoras | filter: $select.search)">
+						{{ item.Nome }}
+					</ui-select-choices>
+				</ui-select>
+			</div>
+		</div>
+	</filter>
+
+	<div class="box">
+		<div class="box-header with-border" style="padding: 10px !important;">
+			<h3 class="box-title"><b>Listagem de Aluguéis</b></h3>
+			<div class="box-tools pull-right">
+				<a id="NovoAluguel" ui-sref="aluguel.novo" class="btn btn-sm btn-flat btn-primary"><span class="fa fa-plus"></span></a>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="table-responsive" ng-show="vm.alugueis && vm.alugueis.length > 0">
+				<table class="table table-condensed table-hover table-bordered text-center datatable">
+					<thead>
+						<tr>
+							<th with="10%">Prev. Devolução</th>
+							<th with="37%">Cliente</th>
+							<th with="10%">CPF</th>
+							<th with="38%">Livro</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in vm.alugueis | orderBy: 'NomeCompleto'">
+							<td>{{ item.DataPrevistaDevolucao | date: ddMMyyyy }}</td>
+							<td>{{ item.Cliente.NomeCompleto | ellipsis : 50 : true }}</td>
+							<td>{{ item.Cliente.CPF | cpf }}</td>
+							<td>{{ item.Livro.Titulo.Nome | ellipsis : 50 : true }} <b>({{ item.Livro.CodigoBiblioteca}})</b></td>
+							<td>{{ item.Livro.Titulo.Editora.Nome }}</td>
+							<td>
+								<button class="btn btn-flat btn-xs btn-success" ng-click="vm.devolver(item)"><span class="fa fa-download"></span></button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="modal-footer" ng-show="vm.administrador">
+			<button class="btn btn-flat btn-danger" ng-click="vm.listarInativos()">Listar Inativos</button>
+		</div>
+	</div>
+</div>

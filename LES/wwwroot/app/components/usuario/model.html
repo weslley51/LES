@@ -1,0 +1,41 @@
+﻿<div ng-controller="UsuarioController as vm">
+	<div class="box">
+		<div class="box-header with-border" style="padding: 15px !important;">
+			<button class="btn btn-default btn-sm btn-flat" style="margin: -5px 15px 0 15px !important;" ng-click="vm.index()"><span class="fa fa-arrow-left"></span></button>
+			<h3 class="box-title" style="margin: -5px 15px 0 0 !important;"><b>Usuario</b></h3>
+			<div class="box-tools pull-right">
+				<button class="btn btn-warning btn-sm btn-flat pull-right" ng-click="vm.resetarSenha(vm.usuario)" ng-disabled="vm.edit"><span class="fa fa-sync-alt"></span></button>				
+				<button class="btn btn-success btn-sm btn-flat pull-right" ng-click="vm.salvar(vm.usuario)" ng-disabled="!vm.edit || vm.formUsuario.$invalid"><span class="fa fa-save"></span></button>
+			</div>
+		</div>
+		<div class="box-body" ng-form="vm.formUsuario">
+			<div class="row">
+				<div class="form-group col-sm-8">
+					<label for="Nome">Nome</label>
+					<input type="text" id="Nome" name="Nome" ng-model="vm.usuario.Nome" class="form-control" placeholder="Nome" ng-disabled="!vm.edit" ng-required="true">
+				</div>
+				<div class="form-group col-sm-4">
+					<label for="Login">Login</label>
+					<input type="text" id="Login" name="Login" ng-model="vm.usuario.Login" class="form-control" placeholder="Login" ng-disabled="!vm.edit" ng-required="true" >
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-sm-8">
+					<label for="Email">Email</label>
+					<input type="text" id="Email" name="Email" ng-model="vm.usuario.Email" class="form-control" placeholder="Email" ng-disabled="!vm.edit" ng-required="true" clean="true">
+				</div>
+				<div class="form-group col-sm-4">
+					<label for="Perfil">Perfil</label>
+					<ui-select class="ui-select-bootstrap" id="Perfil" name="Perfil" theme="bootstrap" ng-model="vm.usuario.Perfil" ng-disabled="!vm.edit" ng-required="true">
+						<ui-select-match placeholder="Perfil">
+							{{ $select.selected.Nome }}
+						</ui-select-match>
+						<ui-select-choices repeat="item in (vm.Perfis | filter: $select.search)">
+							{{ item.Nome }}
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>			
+		</div>
+	</div>
+</div>

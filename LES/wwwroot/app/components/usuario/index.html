@@ -1,0 +1,62 @@
+﻿<div ng-controller="UsuarioController as vm">
+
+	<filter search="vm.pesquisar(vm.busca)" clear="vm.limpar()">
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label for="Nome">Nome</label>
+				<input class="form-control" id="Nome" ng-model="vm.busca.Nome" type="text" />
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="Login">Login</label>
+				<input class="form-control" id="Login" ng-model="vm.busca.Login" type="text" />
+			</div>
+			<div class="form-group col-sm-3 pull-right">
+				<label for="Perfil">Perfil</label>
+				<ui-select class="ui-select-bootstrap" id="Perfil" theme="bootstrap" ng-model="vm.busca.Perfil">
+					<ui-select-match placeholder="Selecione">
+						{{ $select.selected.Nome }}
+					</ui-select-match>
+					<ui-select-choices repeat="item in (vm.Perfis | filter: $select.search)">
+						{{ item.Nome }}
+					</ui-select-choices>
+				</ui-select>
+			</div>
+		</div>
+	</filter>
+
+	<div class="box">
+		<div class="box-header with-border" style="padding: 10px !important;">
+			<h3 class="box-title"><b>Listagem de Usuarios</b></h3>
+			<div class="box-tools pull-right">
+				<a ui-sref="usuario.novo" class="btn btn-sm btn-flat btn-primary"><span class="fa fa-plus"></span></a>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="table-responsive" ng-show="vm.usuarios && vm.usuarios.length > 0">
+				<table class="table table-condensed table-hover table-bordered text-center datatable">
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Login</th>
+							<th>Email</th>
+							<th>Perfil</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in vm.usuarios | orderBy: 'Nome'">
+							<td ui-sref="usuario.visualizar({id: item.Id})">{{ item.Nome | ellipsis : 70 : true }}</td>
+							<td ui-sref="usuario.visualizar({id: item.Id})">{{ item.Login }}</td>
+							<td ui-sref="usuario.visualizar({id: item.Id})">{{ item.Email | ellipsis : 70 : true }}</td>
+							<td ui-sref="usuario.visualizar({id: item.Id})">{{ item.Perfil.Nome }}</td>
+							<td ng-show="usuario.Perfil.Id == 1"><button class="btn btn-danger btn-xs btn-flat" ng-click="vm.excluir(item)"><span class="fa fa-trash"></span></button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="modal-footer" ng-show="vm.administrador">
+			<button class="btn btn-flat btn-danger" ng-click="vm.listarInativos()">Listar Inativos</button>
+		</div>
+	</div>
+</div>

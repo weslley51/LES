@@ -1,0 +1,164 @@
+﻿<div ng-controller="ClienteController as vm">
+	<div class="box">
+		<div class="box-header with-border" style="padding: 15px !important;">
+			<button class="btn btn-default btn-sm btn-flat" style="margin: -5px 15px 0 15px !important;" ng-click="vm.index()"><span class="fa fa-arrow-left"></span></button>
+			<h3 class="box-title" style="margin: -5px 15px 0 0 !important;"><b>Cliente</b></h3>
+			<div class="box-tools pull-right">
+				<button class="btn btn-primary btn-sm btn-flat pull-right" data-toggle="modal" data-target="#modal-pagamento" ng-show="vm.Saldo > 0"><span class="fa fa-money-bill-alt"></span></button>
+				<button class="btn btn-default btn-sm btn-flat pull-right" ng-hide="vm.cliente.Ativo" ng-click="vm.reativar(vm.cliente)" ng-disabled="vm.atualizar"><span class="fa fa-toggle-on"></span></button>
+				<button class="btn btn-danger  btn-sm btn-flat pull-right" ng-hide="!vm.cliente.Ativo" ng-click="vm.excluir(vm.cliente)" ng-disabled="vm.atualizar"><span class="fa fa-trash"></span></button>
+				<button class="btn btn-warning btn-sm btn-flat pull-right" ng-hide="!vm.cliente.Ativo" ng-click="vm.editar()" ng-disabled="vm.atualizar"><span class="fa fa-pencil-alt"></span></button>
+				<button class="btn btn-success btn-sm btn-flat pull-right" ng-hide="!vm.cliente.Ativo" ng-click="vm.salvar(vm.cliente)" ng-disabled="!vm.atualizar || vm.formCliente.$invalid"><span class="fa fa-save"></span></button>
+			</div>
+		</div>
+		<div class="box-body" ng-form="vm.formCliente">
+			<div class="row">
+				<div class="form-group col-sm-10">
+					<label for="NomeCompleto">Nome Completo</label>
+					<input type="text" id="NomeCompleto" name="NomeCompleto" ng-model="vm.cliente.NomeCompleto" class="form-control" placeholder="Nome Completo" ng-disabled="!vm.atualizar" ng-required="true">
+				</div>
+				<div class="form-group col-sm-2" ng-show="vm.cliente.Id != 0">
+					<label for="Saldo">Multa</label>
+					<input type="text" id="Saldo" name="Saldo" ng-model="vm.cliente.Saldo" class="form-control" placeholder="0,00" ng-disabled="true">
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-sm-4">
+					<label for="RG">RG</label>
+					<input type="text" id="RG" name="RG" ng-model="vm.cliente.RG" class="form-control" placeholder="RG" ng-disabled="!vm.atualizar" ng-required="true" mask="99.999.999-?9" clean="true">
+				</div>
+				<div class="form-group col-sm-4">
+					<label for="CPF">CPF</label>
+					<input type="text" id="CPF" name="CPF" ng-model="vm.cliente.CPF" class="form-control" placeholder="CPF" ng-disabled="!vm.atualizar" ng-required="true" mask="999.999.999-99" clean="true">
+				</div>
+				<div class="form-group col-sm-4">
+					<label for="CEP">CEP</label>
+					<input type="text" id="CEP" name="CEP" ng-model="vm.cliente.Endereco.Cep" class="form-control" placeholder="CEP" ng-disabled="!vm.atualizar" ng-required="true" mask="99999-999" clean="true" ng-blur="vm.consultaCEP(vm.cliente.Endereco.Cep)">
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-sm-6">
+					<label for="Logradouro">Logradouro</label>
+					<input type="text" id="Logradouro" name="Logradouro" ng-model="vm.cliente.Endereco.Logradouro" class="form-control" placeholder="Logradouro" ng-disabled="!vm.atualizar" ng-required="true">
+				</div>
+				<div class="form-group col-sm-2">
+					<label for="Numero">Numero</label>
+					<input type="text" id="Numero" name="Numero" ng-model="vm.cliente.Endereco.Numero" class="form-control" placeholder="Numero" ng-disabled="!vm.atualizar" ng-required="true">
+				</div>
+				<div class="form-group col-sm-4">
+					<label for="Bairro">Bairro</label>
+					<input type="text" id="Bairro" name="Bairro" ng-model="vm.cliente.Endereco.Bairro" class="form-control" placeholder="Bairro" ng-disabled="!vm.atualizar" ng-required="true">
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-sm-4">
+					<label for="Municipio">Municipio</label>
+					<input type="text" id="Municipio" name="Municipio" ng-model="vm.cliente.Endereco.Municipio" class="form-control" placeholder="Municipio" ng-disabled="!vm.atualizar" ng-required="true">
+				</div>
+				<div class="form-group col-sm-2">
+					<label for="UF">UF</label>
+					<ui-select class="ui-select-bootstrap" id="UF" name="UF" theme="bootstrap" ng-model="vm.cliente.Endereco.Estado" ng-disabled="!vm.atualizar" ng-required="true">
+						<ui-select-match placeholder="UF">
+							{{ $select.selected.UF }}
+						</ui-select-match>
+						<ui-select-choices repeat="item in (vm.UFs | filter: $select.search)">
+							{{ item.UF }}
+						</ui-select-choices>
+					</ui-select>
+				</div>
+				<div class="form-group col-sm-6">
+					<label for="Complemento">Complemento</label>
+					<input type="text" id="Complemento" name="Complemento" ng-model="vm.cliente.Endereco.Complemento" class="form-control" placeholder="Complemento" ng-disabled="!vm.atualizar">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="box" ng-show="vm.multas && vm.multas.length > 0">
+		<div class="box-header with-border" style="padding: 10px !important;">
+			<h3 class="box-title"><b>Multas</b></h3>
+		</div>
+		<div class="box-body">
+			<div class="table-responsive">
+				<table class="table table-condensed table-hover table-bordered text-center datatable">
+					<thead>
+						<tr>
+							<th>Tipo</th>
+							<th>Aluguel</th>
+							<th>Data Prevista</th>
+							<th>Data Devolução / Pagamento</th>
+							<th>Valor</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in vm.multas">
+							<td>{{ item.TipoMulta | tipoMulta }}</td>
+							<td>{{ item.Aluguel.Livro.Titulo.Nome | ellipsis : 70 : true }}</td>
+							<td>{{ item.Aluguel.DataPrevistaDevolucao | date : 'dd/MM/yyyy HH:mm:ss' }}</td>
+							<td>{{ item.DataCadastro | date : 'dd/MM/yyyy HH:mm:ss' }}</td>
+							<td>{{ item.Valor | currency:"R$ " : 2 }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="box" ng-show="vm.liberarContatos">
+		<div class="box-header with-border" style="padding: 15px !important;">
+			<h3 class="box-title" style="margin: -5px 15px 0 0 !important;"><b>Contatos</b></h3>
+			<div class="box-tools pull-right">
+				<button class="btn btn-success btn-sm btn-flat pull-right" ng-hide="!vm.cliente.Ativo" ng-click="vm.abrirModal({}, 0)"><span class="fa fa-plus"></span></button>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="row">
+				<div class="table-responsive col-sm-12">
+					<table class="table table-condensed table-hover table-bordered">
+						<thead>
+							<tr>
+								<th>Tipo</th>
+								<th>Contato</th>
+								<th>Observação</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="c in vm.cliente.Contatos track by c.Id">
+								<td ng-click="vm.abrirModal(c, 1)">{{ c.Email | contactType }}</td>
+								<td ng-click="vm.abrirModal(c, 1)">{{ c.Valor }}</td>
+								<td ng-click="vm.abrirModal(c, 1)">{{ c.Observacoes }}</td>
+								<td style="text-align:center" ng-click="vm.excluirContato(c)"><button class="btn btn-danger btn-xs btn-flat"><span class="fa fa-trash"></span></button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<modal entity="vm.contato" title="vm.titulo" modal-id="modal-contato" size="modal-md" show-footer="1" modal-form="vm.formContato" save="vm.salvarContato()" update="vm.atualizarContato" edit="vm.editarContato()">
+		<div class="row">
+			<div class="form-group col-xs-12">
+				<label for="Valor">Valor</label>
+				<input type="text" id="ValorContato" ng-model="vm.contato.Valor" class="form-control" placeholder="Valor" ng-disabled="!vm.atualizarContato" ng-required="true">
+			</div>
+			<div class="form-group col-xs-12">
+				<label for="Observacoes">Observações</label>
+				<textarea id="Observacoes" ng-model="vm.contato.Observacoes" class="form-control" placeholder="Observações" ng-disabled="!vm.atualizarContato"></textarea>
+			</div>
+		</div>
+	</modal>
+
+	<modal entity="vm.cliente" title="'Pagamento de Multa'" modal-id="modal-pagamento" size="modal-md" show-footer="0" modal-form="vm.formMulta">
+		<div class="row">
+			<div class="form-group col-xs-10">
+				<label for="Valor">Valor</label>
+				<input type="text" id="ValorMulta" ng-model="vm.Valor" class="form-control" placeholder="0,00" ng-required="true" mask="9?9?9?9?,99" restrict="reject">
+			</div>
+			<div class="col-xs-2">
+				<button class="btn btn-flat btn-success btn-block without-label" data-dismiss="modal" type="button" ng-click="vm.lancarMulta()" ng-disabled="!vm.Valor"><span class="fa fa-check"></span></button>
+			</div>
+		</div>
+	</modal>
+</div>

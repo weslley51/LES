@@ -1,0 +1,66 @@
+﻿<div ng-controller="AluguelController as vm">
+	<div class="box">
+		<div class="box-header with-border" style="padding: 15px !important;">
+			<button class="btn btn-default btn-sm btn-flat" style="margin: -5px 15px 0 15px !important;" ng-click="vm.index()"><span class="fa fa-arrow-left"></span></button>
+			<h3 class="box-title" style="margin: -5px 15px 0 0 !important;"><b>Aluguel</b></h3>
+			<div class="box-tools pull-right">				
+				<button id="btnSalvar" class="btn btn-success btn-sm btn-flat pull-right" ng-click="vm.salvar(vm.livros, vm.cliente)" ng-disabled="vm.cliente.Id == 0"><span class="fa fa-save"></span></button>
+			</div>
+		</div>
+		<div class="box-body">			
+			<div class="row">
+				<div class="form-group col-sm-4">
+					<label for="CPF">CPF</label>
+					<input type="text" id="CPF" name="CPF" ng-model="vm.cliente.CPF" class="form-control" placeholder="CPF" ng-required="true" ng-disabled="vm.bloquearCliente" mask="999.999.999-99" clean="true" ng-blur="vm.buscaCliente(vm.cliente.CPF)">
+				</div>
+				<div class="form-group col-sm-7">
+					<label for="NomeCompleto">Nome Completo</label>
+					<input type="text" id="NomeCompleto" name="NomeCompleto" ng-model="vm.cliente.NomeCompleto" ng-disabled="true" class="form-control" placeholder="Nome Completo">
+				</div>
+				<div class="col-sm-1">
+					<button type="button" class="btn btn-sm btn-flat btn-danger without-label pull-right" ng-click="vm.limpar()"><span class="fa fa-broom"></span></button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-sm-3">
+					<label for="CodigoBiblioteca">Código</label>
+					<input type="text" id="CodigoBiblioteca" name="CodigoBiblioteca" ng-model="vm.livro.CodigoBiblioteca" class="form-control" placeholder="Código" ng-required="true" ng-disabled="vm.bloquearLivro" ng-blur="vm.buscaLivro(vm.livro.CodigoBiblioteca)">
+				</div>
+				<div class="col-sm-1">
+					<button type="button" class="btn btn-sm btn-flat btn-danger without-label pull-right" ng-click="vm.limparLivro()"><span class="fa fa-broom"></span></button>
+				</div>
+				<div class="form-group col-sm-7">
+					<label for="Livro">Livro</label>
+					<input type="text" id="Livro" name="Livro" ng-model="vm.livro.Titulo.Nome" class="form-control" placeholder="Livro" ng-disabled="true">
+				</div>
+				<div class="col-sm-1">
+					<button id="btnAdicionarLivro" type="button" class="btn btn-sm btn-flat btn-primary without-label pull-right" ng-click="vm.adicionarLivro(vm.livro)"><span class="fa fa-plus"></span></button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="table-responsive">
+					<table class="table table-condensed table-hover table-bordered text-center datatable">
+						<thead>
+							<tr>
+								<th with="30%">Livro</th>
+								<th with="20%">Gêneros</th>
+								<th with="25%">Autores</th>
+								<th with="20%">Editora</th>
+								<th with="5%"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in vm.livros | orderBy: 'Nome'">
+								<td>{{ item.Titulo.Nome | ellipsis : 50 : true }} <b>({{ item.CodigoBiblioteca}})</b></td>
+								<td>{{ item.Titulo.Generos[0].Nome }}</td>
+								<td>{{ item.Titulo.Autores[0].Nome }}</td>
+								<td>{{ item.Titulo.Editora.Nome }}</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,92 @@
+﻿<div ng-controller="LivroController as vm">
+
+	<filter search="vm.pesquisar(vm.busca)" clear="vm.limpar()">
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label for="Titulo">Titulo</label>
+				<input class="form-control" id="Titulo" ng-model="vm.busca.Nome" type="text" />
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="CodigoBiblioteca">Código</label>
+				<input class="form-control" id="CodigoBiblioteca" ng-model="vm.busca.CodigoBiblioteca" type="text" />
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="Editora">Editora</label>
+				<ui-select class="ui-select-bootstrap" id="Editora" theme="bootstrap" ng-model="vm.busca.Editora">
+					<ui-select-match placeholder="Selecione">
+						{{ $select.selected.Nome }}
+					</ui-select-match>
+					<ui-select-choices repeat="item in (vm.editoras | filter: $select.search)">
+						{{ item.Nome }}
+					</ui-select-choices>
+				</ui-select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-sm-3">
+				<label for="DataPublicacaoInicio">Inicío Publ.</label>
+				<input class="form-control data" id="DataPublicacaoInicio" ng-model="vm.busca.DataPublicacaoInicio" type="text" />
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="DataPublicacaoFinal">Fim Publ.</label>
+				<input class="form-control data" id="DataPublicacaoFinal" ng-model="vm.busca.DataPublicacaoFinal" type="text" />
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="Genero">Gênero</label>
+				<ui-select class="ui-select-bootstrap" id="Genero" theme="bootstrap" ng-model="vm.busca.Genero">
+					<ui-select-match placeholder="Selecione">
+						{{ $select.selected.Nome }}
+					</ui-select-match>
+					<ui-select-choices repeat="item in (vm.generos | filter: $select.search)">
+						{{ item.Nome }}
+					</ui-select-choices>
+				</ui-select>
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="Autor">Autor</label>
+				<ui-select class="ui-select-bootstrap" id="Autor" theme="bootstrap" ng-model="vm.busca.Autor">
+					<ui-select-match placeholder="Selecione">
+						{{ $select.selected.Nome }}
+					</ui-select-match>
+					<ui-select-choices repeat="item in (vm.autores | filter: $select.search)">
+						{{ item.Nome }}
+					</ui-select-choices>
+				</ui-select>
+			</div>
+		</div>
+	</filter>
+
+	<div class="box">
+		<div class="box-header with-border" style="padding: 10px !important;">
+			<h3 class="box-title"><b>Listagem de Livros</b></h3>
+			<div class="box-tools pull-right">
+				<a ui-sref="livro.novo" class="btn btn-sm btn-flat btn-primary"><span class="fa fa-plus"></span></a>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="table-responsive" ng-show="vm.titulo && vm.titulos.length > 0">
+				<table class="table table-condensed table-hover table-bordered text-center datatable">
+					<thead>
+						<tr>
+							<th with="35%">Nome</th>
+							<th with="15%">Editora</th>
+							<th with="25%">Autores</th>
+							<th with="25%">Gêneros</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in vm.titulos | orderBy: 'Nome'" ui-sref="livro.visualizar({id: item.Id})">
+							<td>{{ item.Nome | ellipsis : 50 : true }}</td>
+							<td>{{ item.Editora.Nome }}</td>
+							<td>{{ item.Autores | names }}</td>
+							<td>{{ item.Generos | names }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="modal-footer" ng-show="vm.administrador">
+			<button class="btn btn-flat btn-danger" ng-click="vm.listarInativos()">Listar Inativos</button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,29 @@
+﻿<div ng-controller="RelatorioController as vm">
+
+	<filter search="vm.pesquisar(vm.busca)" clear="vm.limpar()">
+		<div class="row">
+			<div class="form-group col-sm-4">
+				<label for="Inicio">Inicio</label>
+				<input class="form-control" id="Inicio" ng-model="vm.busca.Inicio" type="month" />
+			</div>
+			<div class="form-group col-sm-4">
+				<label for="Fim">Fim</label>
+				<input class="form-control" id="Fim" ng-model="vm.busca.Fim" type="month" />
+			</div>
+		</div>
+	</filter>
+
+	<div class="box">
+		<div class="box-header with-border" style="padding: 10px !important;">
+			<h3 class="box-title"><b>Gêneros mais alugados por mês</b></h3>
+		</div>
+		<div class="box-body">
+			<div>
+				<canvas max-height="300px"
+						id="line" class="chart chart-line" chart-data="data"
+						chart-labels="labels" chart-series="series" chart-options="options"
+						chart-dataset-override="datasetOverride" chart-click="onClick"></canvas>
+			</div>
+		</div>
+	</div>
+</div>

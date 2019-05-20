@@ -1,0 +1,59 @@
+﻿<div ng-controller="UnidadeController as vm">
+	<div class="box">
+		<div class="box-header with-border" style="padding: 15px !important;">
+			<button class="btn btn-default btn-sm btn-flat" style="margin: -5px 15px 0 15px !important;" ng-click="vm.index()"><span class="fa fa-arrow-left"></span></button>
+			<h3 class="box-title" style="margin: -5px 15px 0 0 !important;"><b>Unidade</b></h3>
+			<div class="box-tools pull-right">				
+				<button class="btn btn-warning btn-sm btn-flat pull-right" ng-click="vm.editar()" ng-disabled="vm.atualizar"><span class="fa fa-pencil-alt"></span></button>
+				<button class="btn btn-success btn-sm btn-flat pull-right" ng-click="vm.salvar(vm.unidade)" ng-disabled="!vm.atualizar || vm.formUnidade.$invalid"><span class="fa fa-save"></span></button>
+			</div>
+		</div>
+		<div class="box-body" ng-form="vm.formUnidade">
+			<div class="row">
+				<div class="form-group col-sm-8">
+					<label for="Nome">Nome</label>
+					<input type="text" id="Nome" name="Nome" ng-model="vm.unidade.Nome" class="form-control" placeholder="Nome" ng-disabled="!vm.atualizar" ng-required="true">
+				</div>
+				<div class="form-group col-sm-4">
+					<label for="CEP">CEP</label>
+					<input type="text" id="CEP" name="CEP" ng-model="vm.unidade.Endereco.Cep" class="form-control" placeholder="CEP" ng-disabled="!vm.atualizar" ng-required="true" mask="99999-999" clean="true" ng-blur="vm.consultaCEP(vm.unidade.Endereco.Cep)">
+				</div>
+			</div>			
+			<div class="row">
+				<div class="form-group col-sm-6">
+					<label for="Logradouro">Logradouro</label>
+					<input type="text" id="Logradouro" name="Logradouro" ng-model="vm.unidade.Endereco.Logradouro" class="form-control" placeholder="Logradouro" ng-disabled="!vm.atualizar" ng-required="true">
+				</div>
+				<div class="form-group col-sm-2">
+					<label for="Numero">Numero</label>
+					<input type="text" id="Numero" name="Numero" ng-model="vm.unidade.Endereco.Numero" class="form-control" placeholder="Numero" ng-disabled="!vm.atualizar" ng-required="true">
+				</div>
+				<div class="form-group col-sm-4">
+					<label for="Bairro">Bairro</label>
+					<input type="text" id="Bairro" name="Bairro" ng-model="vm.unidade.Endereco.Bairro" class="form-control" placeholder="Bairro" ng-disabled="!vm.atualizar" ng-required="true">
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-sm-4">
+					<label for="Municipio">Municipio</label>
+					<input type="text" id="Municipio" name="Municipio" ng-model="vm.unidade.Endereco.Municipio" class="form-control" placeholder="Municipio" ng-disabled="!vm.atualizar" ng-required="true">
+				</div>
+				<div class="form-group col-sm-2">
+					<label for="UF">UF</label>
+					<ui-select class="ui-select-bootstrap" id="UF" name="UF" theme="bootstrap" ng-model="vm.unidade.Endereco.Estado" ng-disabled="!vm.atualizar" ng-required="true">
+						<ui-select-match placeholder="UF">
+							{{ $select.selected.UF }}
+						</ui-select-match>
+						<ui-select-choices repeat="item in (vm.UFs | filter: $select.search)">
+							{{ item.UF }}
+						</ui-select-choices>
+					</ui-select>
+				</div>
+				<div class="form-group col-sm-6">
+					<label for="Complemento">Complemento</label>
+					<input type="text" id="Complemento" name="Complemento" ng-model="vm.unidade.Endereco.Complemento" class="form-control" placeholder="Complemento" ng-disabled="!vm.atualizar">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

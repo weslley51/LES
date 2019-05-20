@@ -1,0 +1,56 @@
+﻿<div ng-controller="UnidadeController as vm">
+
+	<filter search="vm.pesquisar(vm.busca)" clear="vm.limpar()">
+		<div class="row">
+			<div class="form-group col-sm-9">
+				<label for="Nome">Nome</label>
+				<input class="form-control" id="Nome" ng-model="vm.busca.Nome" type="text" />
+			</div>			
+			<div class="form-group col-sm-3">
+				<label for="Estado">UF</label>
+				<ui-select class="ui-select-bootstrap" id="Estado" theme="bootstrap" ng-model="vm.busca.Estado">
+					<ui-select-match placeholder="Selecione">
+						{{ $select.selected.UF }}
+					</ui-select-match>
+					<ui-select-choices repeat="item in (vm.UFs | filter: $select.search)">
+						{{ item.UF }}
+					</ui-select-choices>
+				</ui-select>
+			</div>
+		</div>
+	</filter>
+
+	<div class="box">
+		<div class="box-header with-border" style="padding: 10px !important;">
+			<h3 class="box-title"><b>Listagem de Unidades</b></h3>
+			<div class="box-tools pull-right">
+				<a ui-sref="unidade.novo" class="btn btn-sm btn-flat btn-primary"><span class="fa fa-plus"></span></a>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="table-responsive" ng-show="vm.unidades && vm.unidades.length > 0">
+				<table class="table table-condensed table-hover table-bordered text-center datatable">
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Endereço</th>
+							<th>UF</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in vm.unidades | orderBy: 'Nome'">
+							<td ui-sref="unidade.visualizar({id: item.Id})">{{ item.Nome | ellipsis : 50 : true }}</td>
+							<td ui-sref="unidade.visualizar({id: item.Id})">{{ item.Endereco.Formatado }}</td>
+							<td ui-sref="unidade.visualizar({id: item.Id})">{{ item.Endereco.Estado.UF }}</td>
+							<td><button class="btn btn-danger btn-xs btn-flat" ng-click="vm.excluir(item)"><span class="fa fa-trash"></span></button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="modal-footer" ng-show="vm.administrador">
+			<button class="btn btn-flat btn-danger" ng-click="vm.listarInativos()">Listar Inativos</button>
+		</div>
+	</div>
+</div>

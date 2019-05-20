@@ -1,0 +1,1 @@
+﻿let app = angular.module('App', ['ui.router', 'ui.select', 'ngMask', 'ngFileUpload', 'chart.js', 'ng-sweet-alert']);

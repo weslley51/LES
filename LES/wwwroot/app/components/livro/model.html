@@ -1,0 +1,159 @@
+﻿<div ng-controller="LivroController as vm">
+	<div class="box">
+		<div class="box-header with-border" style="padding: 15px !important;">
+			<button class="btn btn-default btn-sm btn-flat" style="margin: -5px 15px 0 15px !important;" ng-click="vm.index()"><span class="fa fa-arrow-left"></span></button>
+			<h3 class="box-title" style="margin: -5px 15px 0 0 !important;"><b>Titulo</b></h3>
+			<div class="box-tools pull-right">
+				<button class="btn btn-warning btn-sm btn-flat pull-right" ng-click="vm.editar()" ng-disabled="vm.atualizar"><span class="fa fa-pencil-alt"></span></button>
+				<button class="btn btn-success btn-sm btn-flat pull-right" ng-click="vm.salvar(vm.titulo)" ng-disabled="!vm.atualizar || vm.formTitulo.$invalid"><span class="fa fa-save"></span></button>
+			</div>
+		</div>
+		<div class="box-body" ng-form="vm.formTitulo">
+			<div class="row">
+				<div class="form-group col-sm-6">
+					<label for="Nome">Nome</label>
+					<input type="text" id="Nome" name="Nome" ng-model="vm.titulo.Nome" class="form-control" placeholder="Nome" ng-disabled="!vm.atualizar" ng-required="true">
+				</div>
+				<div class="form-group col-sm-2">
+					<label for="AnoPublicacao">Publicação</label>
+					<input type="text" id="AnoPublicacao" name="AnoPublicacao" ng-model="vm.titulo.AnoPublicacao" class="form-control" placeholder="Ano" ng-disabled="!vm.atualizar" ng-required="true">
+				</div>
+				<div class="form-group col-sm-2">
+					<label for="QuantiaFolhas">Folhas</label>
+					<input type="text" id="QuantiaFolhas" name="QuantiaFolhas" ng-model="vm.titulo.QuantiaFolhas" class="form-control" placeholder="Quantia" ng-disabled="!vm.atualizar" ng-required="true">
+				</div>
+				<div class="form-group col-sm-2">
+					<label for="PrazoDevolucao">Devolução</label>
+					<input type="text" id="PrazoDevolucao" name="PrazoDevolucao" ng-model="vm.titulo.PrazoDevolucao" class="form-control" placeholder="Prazo" ng-disabled="!vm.atualizar" ng-required="true">
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-sm-4">
+					<label for="Autores">Autores</label>
+					<ui-select class="ui-select-bootstrap" ng-model="vm.titulo.Autores" multiple theme="bootstrap" id="Autores" name="Autores" ng-disabled="!vm.atualizar" ng-required="true">
+						<ui-select-match placeholder="Autores">{{$item.Nome}}</ui-select-match>
+						<ui-select-choices repeat="item in (vm.autores | filter: $select.search)">
+							{{item.Nome}}
+						</ui-select-choices>
+					</ui-select>
+				</div>
+				<div class="form-group col-sm-4">
+					<label for="Generos">Gêneros</label>
+					<ui-select class="ui-select-bootstrap" id="Generos" name="Generos" theme="bootstrap" ng-model="vm.titulo.Generos" ng-disabled="!vm.atualizar" ng-required="true" multiple="true">
+						<ui-select-match placeholder="Gênero">
+							{{ $item.Nome }}
+						</ui-select-match>
+						<ui-select-choices repeat="item in (vm.generos | filter: $select.search)">
+							{{ item.Nome }}
+						</ui-select-choices>
+					</ui-select>
+				</div>
+				<div class="form-group col-sm-4">
+					<label for="Editora">Editora</label>
+					<ui-select class="ui-select-bootstrap" id="Editoras" name="Editoras" theme="bootstrap" ng-model="vm.titulo.Editora" ng-disabled="!vm.atualizar" ng-required="true">
+						<ui-select-match placeholder="Editora">
+							{{ $select.selected.Nome }}
+						</ui-select-match>
+						<ui-select-choices repeat="item in (vm.editoras | filter: $select.search)">
+							{{ item.Nome }}
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-sm-12">
+					<label for="Sinopse">Sinopse</label>
+					<textarea id="Sinopse" name="Sinopse" ng-model="vm.titulo.Sinopse" class="form-control" placeholder="Sinopse" ng-disabled="!vm.atualizar"></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-sm-12">
+					<label for="Descricao">Descricao</label>
+					<textarea type="text" id="Descricao" name="Descricao" ng-model="vm.titulo.Descricao" class="form-control" placeholder="Descricao" ng-disabled="!vm.atualizar"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="box" ng-show="vm.liberarLivros">
+		<div class="box-header with-border" style="padding: 15px !important;">
+			<h3 class="box-title" style="margin: -5px 15px 0 0 !important;"><b>Livros</b></h3>
+			<div class="box-tools pull-right">
+				<button class="btn btn-success btn-sm btn-flat pull-right" data-toggle="modal" data-target="#modal-lancamento"><span class="fa fa-plus"></span></button>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="row">
+				<div class="table-responsive col-sm-12">
+					<table class="table table-condensed table-hover table-bordered">
+						<tbody>
+							<tr ng-repeat="entidade in vm.titulo.Livros track by entidade.Id">
+								<td width="90%" style="text-align:center" ng-click="vm.abrirModal(entidade)">{{ entidade.CodigoBiblioteca }}</td>
+								<td width="10%" style="text-align:center" ng-click="vm.excluirLivro(entidade)"><button class="btn btn-danger btn-xs btn-flat"><span class="fa fa-trash"></span></button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="modal-lancamento">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header" style="background-color: #3c8dbc">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span class="fa fa-times-circle"></span>
+					</button>
+					<h4 class="modal-title"><strong>Adicionar Livros</strong></h4>
+				</div>
+				<div class="modal-body" ng-form="vm.formEstoque">
+					<div class="row">
+						<div class="form-group col-xs-3">
+							<label for="Quantidade">Quantidade</label>
+							<input type="text" id="Quantidade" name="Quantidade" ng-mask="999" ng-model="vm.lancamento.Quantidade" class="form-control" placeholder="Quantidade" ng-required="true" />
+						</div>
+						<div class="form-group col-xs-9">
+							<label for="Descricao">Observação</label>
+							<input type="text" id="Descricao" name="Descricao" ng-model="vm.lancamento.Descricao" class="form-control" placeholder="Observação" />
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="col-xs-2"></div>
+					<div class="col-xs-3">
+						<button class="btn btn-flat btn-danger btn-block" data-dismiss="modal"><span class="fa fa-times-circle"></span></button>
+					</div>
+					<div class="col-xs-2"></div>
+					<div class="col-xs-3">
+						<button class="btn btn-flat btn-success btn-block" data-dismiss="modal" type="button" ng-click="vm.salvarLancamento(vm.lancamento)" ng-disabled="formEstoque.$invalid"><span class="fa fa-check"></span></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<modal entity="vm.livro" title="'Detalhes'" modal-id="modal-livro" size="modal-md" show-footer="1" modal-form="vm.formLivro" save="vm.salvarLivro()" update="vm.atualizarLivro" edit="vm.editarLivro()">
+		<div class="row">
+			<div class="form-group col-xs-4">
+				<label for="CodigoBiblioteca">Cod. Biblioteca</label>
+				<input type="text" id="CodigoBiblioteca" ng-model="vm.livro.CodigoBiblioteca" class="form-control" placeholder="Nome" ng-disabled="!vm.atualizarLivro" ng-required="true">
+			</div>
+			<div class="form-group col-xs-4">
+				<label for="Observacoes">Observações</label>
+				<input type="text" id="Observacoes" ng-model="vm.livro.Observacoes" class="form-control" placeholder="Observações" ng-disabled="!vm.atualizarLivro" ng-required="true">
+			</div>
+			<div class="form-group col-sm-4">
+				<label for="Unidades">Unidade</label>
+				<ui-select class="ui-select-bootstrap" id="Unidades" name="Unidades" theme="bootstrap" ng-model="vm.livro.Unidade" ng-disabled="!vm.atualizarLivro" ng-required="true">
+					<ui-select-match placeholder="Editora">
+						{{ $select.selected.Nome }}
+					</ui-select-match>
+					<ui-select-choices repeat="item in (vm.unidades | filter: $select.search)">
+						{{ item.Nome }}
+					</ui-select-choices>
+				</ui-select>
+			</div>
+		</div>
+	</modal>
+</div>

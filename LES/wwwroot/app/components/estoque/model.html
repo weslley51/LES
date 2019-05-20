@@ -1,0 +1,57 @@
+﻿<div ng-controller="EstoqueController as vm">
+	<div class="box">
+		<div class="box-header with-border" style="padding: 15px !important;">
+			<button class="btn btn-default btn-sm btn-flat" style="margin: -5px 15px 0 15px !important;" ng-click="vm.index()"><span class="fa fa-arrow-left"></span></button>
+			<h3 class="box-title" style="margin: -5px 15px 0 0 !important;"><b>Estoque</b></h3>
+			<div class="box-tools pull-right">
+				<button class="btn btn-danger  btn-sm btn-flat pull-right" data-toggle="modal" data-target="#modal-exclusao" ng-disabled="vm.edit"><span class="fa fa-trash"></span></button>
+				<button class="btn btn-warning btn-sm btn-flat pull-right" ng-click="vm.editar()" ng-disabled="vm.edit"><span class="fa fa-pencil-alt"></span></button>
+				<button class="btn btn-success btn-sm btn-flat pull-right" ng-click="vm.salvar(vm.lancamento)" ng-disabled="!vm.edit || vm.formEstoque.$invalid"><span class="fa fa-save"></span></button>
+			</div>
+		</div>
+		<div class="box-body" ng-form="vm.formEstoque">
+			<div class="row">
+				<div class="form-group col-sm-12">
+					<label for="Descricao">Descrição</label>
+					<input type="text" id="Descricao" name="Descricao" ng-model="vm.lancamento.Descricao" class="form-control" placeholder="Descricao" ng-disabled="!vm.edit" ng-required="true">
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-sm-4">
+					<label for="Titulo">Titulo</label>
+					<ui-select class="ui-select-bootstrap" id="Titulo" theme="bootstrap" ng-model="vm.filtro.Titulo">
+						<ui-select-match placeholder="Selecione">
+							{{ $select.selected.Nome }}
+						</ui-select-match>
+						<ui-select-choices repeat="item in (vm.Titulos | filter: $select.search)">
+							{{ item.Nome }}
+						</ui-select-choices>
+					</ui-select>
+				</div>
+				<div class="form-group col-sm-4">
+					<label for="TiposMovimentacao">Tipo</label>
+					<ui-select class="ui-select-bootstrap" id="TiposMovimentacao" theme="bootstrap" ng-model="vm.filtro.TiposMovimentacao">
+						<ui-select-match placeholder="Selecione">
+							{{ $select.selected.Nome }}
+						</ui-select-match>
+						<ui-select-choices repeat="item in (vm.tiposMovimentacao | filter: $select.search)">
+							{{ item.Nome }}
+						</ui-select-choices>
+					</ui-select>
+				</div>
+				<div class="form-group col-sm-4">
+					<label for="Unidade">Unidade</label>
+					<ui-select class="ui-select-bootstrap" id="Unidade" theme="bootstrap" ng-model="vm.filtro.Unidade">
+						<ui-select-match placeholder="Selecione">
+							{{ $select.selected.Nome }}
+						</ui-select-match>
+						<ui-select-choices repeat="item in (vm.Unidades | filter: $select.search)">
+							{{ item.Nome }}
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>			
+		</div>
+	</div>
+	<modal-exclusao mensagem="Deseja realmente excluir o lancamento {{ vm.lancamento.Nome }} ?" excluir="vm.excluir()"></modal-exclusao>
+</div>

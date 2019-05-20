@@ -1,0 +1,19 @@
+﻿<form ng-submit="search(filters)">
+	<div class="box box-default">
+		<div class="box-header with-border" style="padding: 10px !important;">
+			<h3 class="box-title"><b>Filtros</b></h3>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" style="margin-top: -2px" ng-click="collapse()" id="MostrarFiltro"><i class="fa" ng-class="hidden ? 'fa-plus' : 'fa-minus'"></i></button>
+			</div>
+		</div>
+		<div class="box-body" ng-show="!hidden">
+			<ng-transclude></ng-transclude>
+		</div>
+		<div class="box-footer" ng-show="!hidden">
+			<div class="col-sm-2 hidden-xs"></div>
+			<button class="btn btn-default btn-flat col-sm-3 col-xs-5" ng-click="clear()"><span class="fa fa-broom"></span> Limpar</button>
+			<div class="col-xs-2"></div>
+			<button class="btn btn-primary btn-flat col-sm-3 col-xs-5" type="submit"><span class="fa fa-search"></span> Buscar</button>
+		</div>
+	</div>
+</form>

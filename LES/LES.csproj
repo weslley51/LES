@@ -1,0 +1,391 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.8.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.8.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FA16A860-CE83-4418-8669-087612CCA690}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LES</RootNamespace>
+    <AssemblyName>LES</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.FileSystems, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.FileSystems.4.0.0\lib\net451\Microsoft.Owin.FileSystems.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.0\lib\net451\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.StaticFiles, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.StaticFiles.4.0.0\lib\net451\Microsoft.Owin.StaticFiles.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector, Version=4.3.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.4.3.0\lib\net45\SimpleInjector.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector.Integration.WebApi, Version=4.3.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.Integration.WebApi.4.3.0\lib\net45\SimpleInjector.Integration.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.6\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\Database\000 - Unificado.txt" />
+    <Content Include="Data\Database\001 - Inicial.sql" />
+    <Content Include="Global.asax" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="wwwroot\app\app.js" />
+    <Content Include="wwwroot\app\components\basico\basico.controller.js" />
+    <Content Include="wwwroot\app\components\basico\index.html" />
+    <Content Include="wwwroot\app\components\aluguel\aluguel.controller.js" />
+    <Content Include="wwwroot\app\components\aluguel\index.html" />
+    <Content Include="wwwroot\app\components\aluguel\model.html" />
+    <Content Include="wwwroot\app\components\login\login.controller.js" />
+    <Content Include="wwwroot\app\components\relatorio\index.html" />
+    <Content Include="wwwroot\app\components\relatorio\relatorio.controller.js" />
+    <Content Include="wwwroot\app\components\multa\multa.controller.js" />
+    <Content Include="wwwroot\app\components\multa\index.html" />
+    <Content Include="wwwroot\app\components\unidade\unidade.controller.js" />
+    <Content Include="wwwroot\app\components\unidade\index.html" />
+    <Content Include="wwwroot\app\components\unidade\model.html" />
+    <Content Include="wwwroot\app\components\usuario\usuario.controller.js" />
+    <Content Include="wwwroot\app\components\usuario\index.html" />
+    <Content Include="wwwroot\app\components\usuario\model.html" />
+    <Content Include="wwwroot\app\components\livro\livro.controller.js" />
+    <Content Include="wwwroot\app\components\livro\index.html" />
+    <Content Include="wwwroot\app\components\livro\model.html" />
+    <Content Include="wwwroot\app\components\estoque\estoque.controller.js" />
+    <Content Include="wwwroot\app\components\estoque\index.html" />
+    <Content Include="wwwroot\app\components\estoque\model.html" />
+    <Content Include="wwwroot\app\components\cliente\cliente.controller.js" />
+    <Content Include="wwwroot\app\components\cliente\index.html" />
+    <Content Include="wwwroot\app\components\cliente\model.html" />
+    <Content Include="wwwroot\app\components\_utils\api.js" />
+    <Content Include="wwwroot\app\components\_utils\cep.service.js" />
+    <Content Include="wwwroot\app\components\_utils\tipoMulta.filter.js" />
+    <Content Include="wwwroot\app\components\_utils\tipoEstoque.filter.js" />
+    <Content Include="wwwroot\app\components\_utils\codeToChar.filter.js" />
+    <Content Include="wwwroot\app\components\_utils\tipoMovimentacao.filter.js" />
+    <Content Include="wwwroot\app\components\_utils\names.filter.js" />
+    <Content Include="wwwroot\app\components\_utils\cpf.filter.js" />
+    <Content Include="wwwroot\app\components\_utils\ellipsis.filter.js" />
+    <Content Include="wwwroot\app\components\_utils\loading.js" />
+    <Content Include="wwwroot\app\components\_utils\rg.filter.js" />
+    <Content Include="wwwroot\app\components\_utils\phone.filter.js" />
+    <Content Include="wwwroot\app\components\_utils\contactType.filter.js" />
+    <Content Include="wwwroot\app\config.js" />
+    <Content Include="wwwroot\app\directives\filter\filter.html" />
+    <Content Include="wwwroot\app\directives\filter\filter.js" />
+    <Content Include="wwwroot\app\directives\modal\modal.html" />
+    <Content Include="wwwroot\app\directives\modal\modal.js" />
+    <Content Include="wwwroot\app\routes.js" />
+    <Content Include="wwwroot\img\book.png" />
+    <Content Include="wwwroot\img\favicon.png" />
+    <Content Include="wwwroot\img\logo-pontual-menu.png" />
+    <Content Include="wwwroot\img\user.png" />
+    <Content Include="wwwroot\index.html" />
+    <Content Include="wwwroot\lib\adminLTE\css\AdminLTE.min.css" />
+    <Content Include="wwwroot\lib\adminLTE\css\skins\skin-black.min.css" />
+    <Content Include="wwwroot\lib\adminLTE\css\skins\skin-blue.min.css" />
+    <Content Include="wwwroot\lib\adminLTE\js\adminlte.min.js" />
+    <Content Include="wwwroot\lib\angular\css\select.min.css" />
+    <Content Include="wwwroot\lib\angular\js\angular-locale_pt-br.js" />
+    <Content Include="wwwroot\lib\angular\js\angular-ui-router.min.js" />
+    <Content Include="wwwroot\lib\angular\js\angular.min.js" />
+    <Content Include="wwwroot\lib\angular\js\ng-file-upload.min.js" />
+    <Content Include="wwwroot\lib\angular\js\ngMask.min.js" />
+    <Content Include="wwwroot\lib\angular\js\select.min.js" />
+    <Content Include="wwwroot\lib\angular\js\ngSweetAlert.js" />
+    <Content Include="wwwroot\lib\bootstrap\css\bootstrap.min.css" />
+    <Content Include="wwwroot\lib\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="wwwroot\lib\bootstrap\js\bootstrap.min.js" />
+    <Content Include="wwwroot\lib\chart\chart.js" />
+    <Content Include="wwwroot\lib\chart\chart.bundle.js" />
+    <Content Include="wwwroot\lib\chart\angular-chart.js" />
+    <Content Include="wwwroot\lib\chart\angular-chart.min.js" />
+    <Content Include="wwwroot\lib\custom\style.css" />
+    <Content Include="wwwroot\lib\datatable\css\datatables.bs.min.css" />
+    <Content Include="wwwroot\lib\datatable\js\datatables.bs.min.js" />
+    <Content Include="wwwroot\lib\datatable\js\datatables.min.js" />
+    <Content Include="wwwroot\lib\datepicker\css\datepicker.min.css" />
+    <Content Include="wwwroot\lib\datepicker\js\datepicker.min.js" />
+    <Content Include="wwwroot\lib\font-awesome\css\font-awesome_5.3.1.min.css" />
+    <Content Include="wwwroot\lib\font-awesome\css\font-awesome.min.css" />
+    <Content Include="wwwroot\lib\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="wwwroot\lib\font-awesome\js\font-awesome.min.js" />
+    <Content Include="wwwroot\lib\jquery\jquery.min.js" />
+    <Content Include="wwwroot\lib\sweet-alert\sweetalert.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\SimpleInjector.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Business\RelatorioBusiness.cs" />
+    <Compile Include="Controllers\ContatoController.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\EditoraController.cs" />
+    <Compile Include="Controllers\EstoqueController.cs" />
+    <Compile Include="Controllers\GeneroController.cs" />
+    <Compile Include="Controllers\PerfilController.cs" />
+    <Compile Include="Controllers\MultaController.cs" />
+    <Compile Include="Controllers\EstadoController.cs" />
+    <Compile Include="Controllers\LivroController.cs" />
+    <Compile Include="Controllers\RelatorioController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\UnidadeController.cs" />
+    <Compile Include="Controllers\TituloController.cs" />
+    <Compile Include="Controllers\AluguelController.cs" />
+    <Compile Include="Controllers\AutorController.cs" />
+    <Compile Include="Data\Repositories\AluguelRepository.cs" />
+    <Compile Include="Data\Repositories\MultaRepository.cs" />
+    <Compile Include="Data\Repositories\EstoqueRepository.cs" />
+    <Compile Include="Data\Repositories\RelatorioRepository.cs" />
+    <Compile Include="Data\Repositories\UnidadeRepository.cs" />
+    <Compile Include="Data\Repositories\TituloRepository.cs" />
+    <Compile Include="Data\Repositories\LivroRepository.cs" />
+    <Compile Include="Data\Repositories\UsuarioRepository.cs" />
+    <Compile Include="Data\Repositories\ClienteRepository.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Autor.cs" />
+    <Compile Include="Models\Aluguel.cs" />
+    <Compile Include="Models\Contato.cs" />
+    <Compile Include="Models\Editora.cs" />
+    <Compile Include="Models\Endereco.cs" />
+    <Compile Include="Models\Estado.cs" />
+    <Compile Include="Models\Estoque.cs" />
+    <Compile Include="Models\Genero.cs" />
+    <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\Livro.cs" />
+    <Compile Include="Models\LogAlteracao.cs" />
+    <Compile Include="Models\LogErro.cs" />
+    <Compile Include="Models\Multa.cs" />
+    <Compile Include="Models\Perfil.cs" />
+    <Compile Include="Models\Dominio.cs" />
+    <Compile Include="Models\Relatorio.cs" />
+    <Compile Include="Models\Titulo.cs" />
+    <Compile Include="Models\Unidade.cs" />
+    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Data\Contexto.cs" />
+    <Compile Include="Data\Maps\AluguelMap.cs" />
+    <Compile Include="Data\Maps\LogAlteracaoMap.cs" />
+    <Compile Include="Data\Maps\LogErroMap.cs" />
+    <Compile Include="Data\Maps\MultaMap.cs" />
+    <Compile Include="Data\Maps\ClienteMap.cs" />
+    <Compile Include="Data\Maps\ContatoMap.cs" />
+    <Compile Include="Data\Maps\EnderecoMap.cs" />
+    <Compile Include="Data\Maps\EstadoMap.cs" />
+    <Compile Include="Data\Maps\EstoqueMap.cs" />
+    <Compile Include="Data\Maps\AutorMap.cs" />
+    <Compile Include="Data\Maps\EditoraMap.cs" />
+    <Compile Include="Data\Maps\GeneroMap.cs" />
+    <Compile Include="Data\Maps\LivroMap.cs" />
+    <Compile Include="Data\Maps\UnidadeMap.cs" />
+    <Compile Include="Data\Maps\TituloMap.cs" />
+    <Compile Include="Data\Maps\PerfilMap.cs" />
+    <Compile Include="Data\Maps\UsuarioMap.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="Strategies\Alugueis\CalcularMulta.cs" />
+    <Compile Include="Strategies\Alugueis\ValidarAlteracaoAluguel.cs" />
+    <Compile Include="Strategies\Alugueis\ValidarLivroAluguel.cs" />
+    <Compile Include="Strategies\Alugueis\ValidarClienteAluguel.cs" />
+    <Compile Include="Strategies\Alugueis\ValidarUnidadeAluguel.cs" />
+    <Compile Include="Strategies\Autor\ValidarAutor.cs" />
+    <Compile Include="Strategies\Clientes\ValidarAlteracoesCliente.cs" />
+    <Compile Include="Strategies\Clientes\ValidarMulta.cs" />
+    <Compile Include="Strategies\Clientes\ValidarInformacoesCliente.cs" />
+    <Compile Include="Strategies\Clientes\ValidarContatosCliente.cs" />
+    <Compile Include="Strategies\Clientes\ValidarNovoCliente.cs" />
+    <Compile Include="Strategies\Contatos\ValidarContato.cs" />
+    <Compile Include="Strategies\Editoras\ValidarEditora.cs" />
+    <Compile Include="Strategies\LancamentosEstoque\LancarLivros.cs" />
+    <Compile Include="Strategies\LancamentosEstoque\ValidarUnidadeEstoque.cs" />
+    <Compile Include="Strategies\LancamentosEstoque\ValidarTituloEstoque.cs" />
+    <Compile Include="Strategies\LancamentosEstoque\ValidarEstoque.cs" />
+    <Compile Include="Strategies\Livros\LancarAlteracaoEstoque.cs" />
+    <Compile Include="Strategies\Livros\ValidarLivro.cs" />
+    <Compile Include="Strategies\Livros\ValidarTituloLivro.cs" />
+    <Compile Include="Strategies\Livros\ValidarUnidadeLivro.cs" />
+    <Compile Include="Strategies\Titulos\ValidarAlteracoesTitulo.cs" />
+    <Compile Include="Strategies\Titulos\ValidarAutoresTitulo.cs" />
+    <Compile Include="Strategies\Titulos\ValidarEditoraTitulo.cs" />
+    <Compile Include="Strategies\Titulos\ValidarGenerosTitulo.cs" />
+    <Compile Include="Strategies\Enderecos\ValidarEndereco.cs" />
+    <Compile Include="Strategies\Estados\ValidarEstado.cs" />
+    <Compile Include="Strategies\Generos\ValidarGenero.cs" />
+    <Compile Include="Strategies\Perfis\ValidarPerfil.cs" />
+    <Compile Include="Strategies\Titulos\ValidarInformacoesTitulo.cs" />
+    <Compile Include="Strategies\Unidades\ValidarAlteracoesUnidade.cs" />
+    <Compile Include="Strategies\Unidades\ValidarInformacoesUnidade.cs" />
+    <Compile Include="Strategies\Unidades\ValidarNovaUnidade.cs" />
+    <Compile Include="Strategies\Usuarios\CriptografarSenha.cs" />
+    <Compile Include="Strategies\Dominios\InativarRegistro.cs" />
+    <Compile Include="Strategies\Dominios\InformacoesRegistro.cs" />
+    <Compile Include="Strategies\Clientes\ValidarCPF.cs" />
+    <Compile Include="Strategies\Usuarios\ValidarUsuario.cs" />
+    <Compile Include="Structure\Bussiness.cs" />
+    <Compile Include="Structure\Controller.cs" />
+    <Compile Include="Structure\Repository.cs" />
+    <Compile Include="Structure\Strategy.cs" />
+    <Compile Include="Utils\CommandType.cs" />
+    <Compile Include="Utils\Enums.cs" />
+    <Compile Include="Utils\Filter.cs" />
+    <Compile Include="Utils\HttpHelper.cs" />
+    <Compile Include="Utils\LinqExtensions.cs" />
+    <Compile Include="Utils\MD5Manipulator.cs" />
+    <Compile Include="Utils\Message.cs" />
+    <Compile Include="Utils\ObjectExtensions.cs" />
+    <Compile Include="Utils\Result.cs" />
+    <Compile Include="Utils\StringExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\Database\LES.bak" />
+    <None Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="wwwroot\lib\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="wwwroot\lib\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="wwwroot\lib\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="wwwroot\lib\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="wwwroot\lib\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="wwwroot\lib\font-awesome\css\font-awesome.css.map" />
+    <Content Include="wwwroot\lib\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="wwwroot\lib\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="wwwroot\lib\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="wwwroot\lib\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="wwwroot\lib\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="wwwroot\lib\jquery\jquery.min.map" />
+    <Content Include="wwwroot\lib\chart\angular-chart.min.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>60151</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:60151/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.8.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.8.2\build\Microsoft.Net.Compilers.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

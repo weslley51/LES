@@ -1,0 +1,62 @@
+﻿<div ng-controller="ClienteController as vm">
+
+	<filter search="vm.pesquisar(vm.busca)" clear="vm.limpar()">
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label for="Nome">Nome</label>
+				<input class="form-control" id="Nome" ng-model="vm.busca.Nome" type="text" />
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="CPF">CPF</label>
+				<input class="form-control" id="CPF" ng-model="vm.busca.CPF" type="text" />
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="Estado">UF</label>
+				<ui-select class="ui-select-bootstrap" id="Estado" theme="bootstrap" ng-model="vm.busca.Estado">
+					<ui-select-match placeholder="Selecione">
+						{{ $select.selected.UF }}
+					</ui-select-match>
+					<ui-select-choices repeat="item in (vm.UFs | filter: $select.search)">
+						{{ item.UF }}
+					</ui-select-choices>
+				</ui-select>
+			</div>
+		</div>
+	</filter>
+
+	<div class="box">
+		<div class="box-header with-border" style="padding: 10px !important;">
+			<h3 class="box-title"><b>Listagem de Clientes</b></h3>
+			<div class="box-tools pull-right" id="Novo">
+				<a ui-sref="cliente.novo" class="btn btn-sm btn-flat btn-primary"><span class="fa fa-plus"></span></a>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="table-responsive" ng-show="vm.clientes && vm.clientes.length > 0">
+				<table class="table table-condensed table-hover table-bordered text-center datatable">
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>RG</th>
+							<th>CPF</th>
+							<th>Endereço</th>
+							<th>UF</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in vm.clientes | orderBy: 'NomeCompleto'">
+							<td ui-sref="cliente.visualizar({id: item.Id})">{{ item.NomeCompleto | ellipsis : 50 : true }}</td>
+							<td ui-sref="cliente.visualizar({id: item.Id})">{{ item.RG | rg }}</td>
+							<td ui-sref="cliente.visualizar({id: item.Id})">{{ item.CPF | cpf }}</td>
+							<td ui-sref="cliente.visualizar({id: item.Id})">{{ item.Endereco.Formatado }}</td>
+							<td ui-sref="cliente.visualizar({id: item.Id})">{{ item.Endereco.Estado.UF }}</td>							
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="modal-footer" ng-show="usuario.Perfil.Id == 1">
+			<button class="btn btn-flat btn-danger" ng-click="vm.listarInativos(vm.busca)">Listar Inativos</button>
+		</div>
+	</div>
+</div>
